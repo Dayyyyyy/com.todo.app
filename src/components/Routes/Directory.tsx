@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { Task } from "../../interfaces";
-import { useAppSelector } from "../../store/hooks";
-import useDescriptionTitle from "../hooks/useDescriptionTitle";
-import LayoutRoutes from "../Utilities/LayoutRoutes";
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Task } from '../../interfaces';
+import { useAppSelector } from '../../store/hooks';
+import useDescriptionTitle from '../hooks/useDescriptionTitle';
+import LayoutRoutes from '../Utilities/LayoutRoutes';
 
 const Directory: React.FC = () => {
   const tasks = useAppSelector((state) => state.tasks.tasks);
@@ -13,7 +13,7 @@ const Directory: React.FC = () => {
 
   useDescriptionTitle(
     `Tasks in "${params.dir}"`,
-    params.dir ? params.dir + " directory" : ""
+    params.dir ? params.dir + ' directory' : ''
   );
 
   const [tasksInCurrentDirectory, setTasksInCurrentDirectory] = useState<
@@ -21,9 +21,11 @@ const Directory: React.FC = () => {
   >([]);
 
   useEffect(() => {
-    const dirExists = directories.includes(params.dir);
+    const dirExists = directories.includes(
+      params?.dir === undefined ? '' : params?.dir
+    );
     if (!dirExists) {
-      navigate("/");
+      navigate('/');
     }
     const tasksFiltered = tasks.filter((task: Task) => task.dir === params.dir);
     setTasksInCurrentDirectory(tasksFiltered);
